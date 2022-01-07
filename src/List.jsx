@@ -1,7 +1,7 @@
 import React,{useState} from "react";
 import Modal from "./Modal";
 
-let List = ({ obj, __task }) => {
+const List = ({ obj, __task }) => {
   async function Delete_task(id) {
     const requestOptions = {
       method: "DELETE",

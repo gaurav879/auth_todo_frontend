@@ -1,6 +1,6 @@
 import React,{useState} from "react";
 
-let Modal = (props) =>{
+const Modal = (props) =>{
     const [edited_task,set]  =useState(props.__task.task)
 let Edit_task = async () =>{
     // console.log(props.flag)
