@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from "react";
 import List from "./List";
+import Cookies from 'universal-cookie';
 
 const Todo = () => {
+  let cookies= new Cookies()
   const task_list = async () => {
     const requestOptions = {
-      method: "GET",
+      method: "POST",
+      body:JSON.stringify({
+        "jwt": cookies.get("jwt")
+      })
     };
-    await fetch("http://127.0.0.1:8000", requestOptions)
+    await fetch("http://127.0.0.1:8000/data", requestOptions)
       .then((response) => response.json())
       .then((data) => setArr(data));
   };
