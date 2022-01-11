@@ -16,12 +16,12 @@ const Login = () => {
         password: password,
       }),
     };
-    let temp = 0;
     await fetch("http://127.0.0.1:8000/login/", requestOptions)
       .then((response) => {
         console.log(response.status);
-        if (response.status == 200) {
-          response.json();
+        if (response.status === 200) {
+          console.log("here")
+          return response.json()
         } else throw new Error("Error in username/password");
 
         // alert("wrong password/username")
@@ -29,7 +29,7 @@ const Login = () => {
       .then((data) => {
         console.log(data);
         cookies.set("jwt", data.access, { path: "/" });
-        navigate("/");
+        navigate("/todo");
       })
 
       .catch((err) => {
@@ -50,7 +50,7 @@ const Login = () => {
       <br />
       <input
         onChange={(e) => setPassword(e.target.value)}
-        type="text"
+        type="password"
         placeholder="Password"
       />
       <br />
@@ -61,7 +61,7 @@ const Login = () => {
       </button>
       <br />
       <br />
-      <a href="http://localhost:3000/signup">
+      <a href="http://localhost:3000">
         <button>Sign up</button>
       </a>
     </div>

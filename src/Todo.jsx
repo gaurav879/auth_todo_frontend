@@ -1,17 +1,25 @@
 import React, { useState, useEffect } from "react";
 import List from "./List";
 import Cookies from 'universal-cookie';
+import { useNavigate } from "react-router-dom";
 
 const Todo = () => {
+  const navigate = useNavigate()
   let cookies= new Cookies()
+  const logout = () => {
+      console.log("0000")
+    cookies.remove("jwt");
+    navigate("/");
+  }
   const task_list = async () => {
     const requestOptions = {
-      method: "POST",
-      body:JSON.stringify({
-        "jwt": cookies.get("jwt")
+      method: "GET",
+      headers : new Headers({
+        "Authorization": `Bearer ${cookies.get("jwt")}`
       })
     };
-    await fetch("http://127.0.0.1:8000/data", requestOptions)
+    console.log(cookies.get("jwt"))
+    await fetch("http://127.0.0.1:8000", requestOptions)
       .then((response) => response.json())
       .then((data) => setArr(data));
   };
@@ -26,6 +34,9 @@ const Todo = () => {
     todoSet("")
     const requestOptions = {
       method: "POST",
+      headers: new Headers({
+        "Authorization" : `Bearer ${cookies.get("jwt")}`
+      }),
       body: JSON.stringify({
         task: new_todo,
         status: false,
@@ -68,7 +79,7 @@ const Todo = () => {
       ))
     }
       
-        
+        <button onClick={()=>{logout()}}>Logout</button>
         
     </div>
   );

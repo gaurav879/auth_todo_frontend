@@ -1,11 +1,16 @@
 import React,{useState} from "react";
+import Cookies from "universal-cookie";
 
 const Modal = (props) =>{
     const [edited_task,set]  =useState(props.__task.task)
 let Edit_task = async () =>{
+  let cookies = new Cookies()
     // console.log(props.flag)
     const requestOptions = {
         method: "PUT",
+        headers: new Headers({
+          "Authorization" : `Bearer ${cookies.get("jwt")}`
+        }),
         body: JSON.stringify({ 
           "id":props.__task.id,
           "task":edited_task,

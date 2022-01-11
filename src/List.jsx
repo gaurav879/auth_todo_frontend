@@ -1,10 +1,15 @@
 import React,{useState} from "react";
 import Modal from "./Modal";
+import Cookies from "universal-cookie";
 
 const List = ({ obj, __task }) => {
+  let cookies = new Cookies()
   async function Delete_task(id) {
     const requestOptions = {
       method: "DELETE",
+      headers: new Headers({
+        "Authorization" : `Bearer ${cookies.get("jwt")}`
+      }),
       body: JSON.stringify({
         id: id,
       }),

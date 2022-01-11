@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
+  const navigate = useNavigate()
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -24,6 +26,7 @@ const Signup = () => {
       setEmail("");
       setPassword("");
       setC_Password("");
+      navigate("/login")
     }
     else{
       alert("Passwords do not match")
