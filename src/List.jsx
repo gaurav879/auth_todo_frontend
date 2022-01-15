@@ -1,6 +1,7 @@
 import React,{useState} from "react";
 import Modal from "./Modal";
 import Cookies from "universal-cookie";
+import {Typography,Button,Container} from '@mui/material';
 
 const List = ({ obj, __task }) => {
   let cookies = new Cookies()
@@ -14,7 +15,7 @@ const List = ({ obj, __task }) => {
         id: id,
       }),
     };
-    await fetch("http://127.0.0.1:8000", requestOptions)
+    await fetch("https://auth-todo-b.herokuapp.com", requestOptions)
       .then((response) => response.json())
       .then((data) => console.log(data));
     obj.refresh();
@@ -36,7 +37,7 @@ const List = ({ obj, __task }) => {
         status: !stat,
       }),
     };
-    await fetch("http://127.0.0.1:8000", requestOptions)
+    await fetch("https://auth-todo-b.herokuapp.com", requestOptions)
       .then((response) => response.json)
       .then((data) => console.log(data));
     obj.refresh();
@@ -47,35 +48,36 @@ const List = ({ obj, __task }) => {
     setFlag(!flag)
   };
   return (
-    <div>
-      <span
+    <Container variant="div">
+      <Typography
         onClick={() => {
           Finish_Task(__task.id);
         }}
       >
         {__task.status ? __task.task + "aaa" : __task.task}
-      </span>
-      <button
+      </Typography>
+      <Button
+      variant="contained"
         id={__task.id}
         onClick={() => {
           Edit_task();
         }}
       >
         Edit
-      </button>
+      </Button>
       {flag && <Modal key={__task.id} __task={__task} flag={setFlag} refresh={obj.refresh}/>}
 
-      <button
+      <Button
+      variant="contained"
         id={__task.id}
         onClick={() => {
           Delete_task(__task.id);
         }}
       >
         Delete
-      </button>
+      </Button>
       <br />
-      <br />
-    </div>
+    </Container>
   );
 };
 

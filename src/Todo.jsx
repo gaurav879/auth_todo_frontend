@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import List from "./List";
 import Cookies from 'universal-cookie';
 import { useNavigate } from "react-router-dom";
+import {Typography,Button,Input,Container,ButtonGroup} from '@mui/material';
 
 const Todo = () => {
   const navigate = useNavigate()
@@ -19,7 +20,7 @@ const Todo = () => {
       })
     };
     console.log(cookies.get("jwt"))
-    await fetch("http://127.0.0.1:8000", requestOptions)
+    await fetch("https://auth-todo-b.herokuapp.com", requestOptions)
       .then((response) => response.json())
       .then((data) => setArr(data));
   };
@@ -42,7 +43,7 @@ const Todo = () => {
         status: false,
       }),
     };
-    await fetch("http://127.0.0.1:8000", requestOptions)
+    await fetch("https://auth-todo-b.herokuapp.com", requestOptions)
       .then((response) => response.json())
       .then((data) => console.log(data));
     task_list();
@@ -54,8 +55,9 @@ const Todo = () => {
  }
   
   return (
-    <div>
-      <input
+    <Container variant="div">
+      <Typography variant="h4"> Your ToDo List</Typography>
+      <Input
         type="text"
         placeholder="Add your Task..."
         value={new_todo}
@@ -63,25 +65,26 @@ const Todo = () => {
           todoSet(e.target.value);
         }}
       />
-
-      <button
-        type="submit"
-        onClick={() => {
-          if (new_todo) Add_task(new_todo);
-        }}
-      >
-        Add Task
-      </button>
-      <br />
-      <br />
+      <ButtonGroup variant="contained">
+        <Button
+          type="submit"
+          onClick={() => {
+            if (new_todo) Add_task(new_todo);
+          }}
+        >
+          Add Task
+        </Button>
+        <Button onClick={()=>{logout()}}>Logout</Button>
+      </ButtonGroup>
+      
+      
       {arr.map((x) => (
         <List  key={x.id} __task={x} obj={obj}/>
       ))
     }
       
-        <button onClick={()=>{logout()}}>Logout</button>
         
-    </div>
+    </Container>
   );
 };
 

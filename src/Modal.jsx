@@ -1,5 +1,6 @@
 import React,{useState} from "react";
 import Cookies from "universal-cookie";
+import {Button,Input,Container} from '@mui/material';
 
 const Modal = (props) =>{
     const [edited_task,set]  =useState(props.__task.task)
@@ -17,16 +18,16 @@ let Edit_task = async () =>{
           "status":props.__task.status
         }),
       };
-      await fetch("http://127.0.0.1:8000", requestOptions)
+      await fetch("https://auth-todo-b.herokuapp.com", requestOptions)
       .then(response => response.json())
       .then(data => console.log(data))
       props.flag(false)
       props.refresh()
 }
-    return(<div>
-        <input type="text" value={edited_task} onChange={(e)=>set(e.target.value)}/>
-        <button  onClick={()=>{Edit_task(props.__task.key,edited_task)}}>Edit Task</button>
-        </div>)
+    return(<Container>
+        <Input type="text" value={edited_task} onChange={(e)=>set(e.target.value)}/>
+        <Button variant="contained" onClick={()=>{Edit_task(props.__task.key,edited_task)}}>Edit Task</Button>
+        </Container>)
 }
 
 export default Modal;

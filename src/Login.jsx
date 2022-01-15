@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Cookies from "universal-cookie";
 import { useNavigate } from "react-router-dom";
+import {Typography,Button,ButtonGroup,Input, Container} from '@mui/material';
 
 const Login = () => {
   const cookies = new Cookies();
@@ -16,7 +17,7 @@ const Login = () => {
         password: password,
       }),
     };
-    await fetch("http://127.0.0.1:8000/login/", requestOptions)
+    await fetch("https://auth-todo-b.herokuapp.com/login/", requestOptions)
       .then((response) => {
         console.log(response.status);
         if (response.status === 200) {
@@ -40,31 +41,28 @@ const Login = () => {
   }
 
   return (
-    <div>
-      <input
+    <Container variant="div">
+      <Typography variant="h3" gutterBottom> Login Page </Typography>
+      
+      <Input
         onChange={(e) => setUsername(e.target.value)}
         type="text"
         placeholder="Username"
       />
       <br />
-      <br />
-      <input
+      <Input
         onChange={(e) => setPassword(e.target.value)}
         type="password"
         placeholder="Password"
       />
       <br />
       <br />
-      <button type="submit" onClick={Add_User}>
-        {" "}
-        Login
-      </button>
-      <br />
-      <br />
-      <a href="http://localhost:3000">
-        <button>Sign up</button>
-      </a>
-    </div>
+      <ButtonGroup variant="contained" >
+        <Button type="submit"  onClick={Add_User}>Login</Button>
+        <Button href="http://localhost:3000">Sign up</Button>
+      </ButtonGroup>
+      
+    </Container>
   );
 };
 export default Login;

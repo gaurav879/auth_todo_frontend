@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {Typography,Button,Input,Container,ButtonGroup} from '@mui/material';
 
 const Signup = () => {
   const navigate = useNavigate()
@@ -19,7 +20,7 @@ const Signup = () => {
         }),
       };
 
-      await fetch("http://127.0.0.1:8000/login/signup", requestOptions)
+      await fetch("https://auth-todo-b.herokuapp.com/login/signup", requestOptions)
         .then((response) => response.json())
         .then((data) => console.log(data));
       setUsername("");
@@ -34,45 +35,38 @@ const Signup = () => {
   }
 
   return (
-    <div>
-      <input
+    <Container variant="div">
+      <Typography variant="h3" gutterBottom> Sign Up Page </Typography>
+      <Input
         onChange={(e) => setUsername(e.target.value)}
         type="text"
         placeholder="Username"
       />
       <br />
-      <br />
-      <input
+      <Input
         onChange={(e) => setEmail(e.target.value)}
         type="text"
         placeholder="Email"
       />
       <br />
-      <br />
-      <input
+      <Input
         onChange={(e) => setPassword(e.target.value)}
         type="password"
         placeholder="Password"
       />
       <br />
-      <br />
-      <input
+      <Input
         onChange={(e) => setC_Password(e.target.value)}
         type="password"
         placeholder="Confirm Password"
       />
       <br />
       <br />
-      <button type="submit" onClick={Add_User}>
-        {" "}
-        Sign Up
-      </button>
-      <br />
-      <br />
-      <a href="http://localhost:3000/login">
-        <button>Login</button>
-      </a>
-    </div>
+      <ButtonGroup variant="contained">
+        <Button type="submit" onClick={Add_User}>Sign Up</Button>
+        <Button href="http://localhost:3000/login">Login</Button>
+      </ButtonGroup>
+    </Container>
   );
 };
 export default Signup;
