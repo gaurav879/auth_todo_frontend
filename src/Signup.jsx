@@ -64,7 +64,7 @@ const Signup = () => {
       <br />
       <ButtonGroup variant="contained">
         <Button type="submit" onClick={Add_User}>Sign Up</Button>
-        <Button href="http://localhost:3000/login">Login</Button>
+        <Button href="https://authtodo.netlify.app/login">Login</Button>
       </ButtonGroup>
     </Container>
   );
